@@ -8,7 +8,7 @@ output:
     lib_dir: libs
     css: ['rvk.css']
     nature:
-      ratio: '16:9'
+      ratio: '191:100'
       highlightStyle: github
       countIncrementalSlides: false
 ---
