@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>The data you were promised… and the data that you got</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Hlynur HallgrímssonThe City of Reykjavík" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="rvk.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# The data you were promised… and the data that you got
+## A story about Reykjavík’s Thermal Pools
+### Hlynur Hallgrímsson</br>The City of Reykjavík
+### November 9th, 2021
+
+---
+
+
+# Who am I?
+
+*  **Hlynur Hallgrímsson** &lt;/br&gt;
+Senior Data Scientist &lt;/br&gt;
+Office of Data Services &lt;/br&gt;
+City of Reykjavík
+
+* **Economist in a past life** &lt;/br&gt;
+Background in economics and econometrics, but I've been working as a data scientist since 2016 (I was a data analyst before that).
+
+- **The data science team is new.** &lt;/br&gt;
+Created at the end of 2019 (I joined in March of 2020). &lt;/br&gt;
+We're a small team. There's only 6 of us.
+
+- **What we do** &lt;/br&gt;
+We create data products for other departments. Often times this means doing the data work from start to finish, but as there are other analysts, statisticians and data scientists working throughout the City of Reykjavík, we're sometimes brought in to help them. For instance, taking their analysis to the next level by either reimplementing at a larger scale, or putting them into production.
+
+---
+
+# What is this talk about?
+
+### It's about swimming pools!
+
+The population of Iceland is 375.000 people. The City of Reykjavík is home to 135.000 of them, or about 36%&lt;sup&gt;1&lt;/sup&gt;. A large share of those people is **crazy** about swimming pools. So the city runs seven public geo-thermal swimming pools, six of which are open 363 days a year&lt;sup&gt;2&lt;/sup&gt;. 
+
+### But mostly it's about how data science is, like... really hard... 😭
+
+Ideally this talk would be titled *"The good life: How data science becomes super easy when you have the right tools!"*. But, as you might know, **the hardest thing in data science isn't really any specific data science thing**. In my experience the hardest things are stuff like group intercommunication and project logistics (like dealing with vendors 🙃). 
+
+
+&lt;/br&gt;
+.footnote[[1] The greater Reykjavík area (a.k.a. the capital region) actually accounts for 64% of all Icelanders (240.000).] &lt;/br&gt;
+.footnote[[2] The pools are closed on Christmas Day and New Year's Day.]
+
+---
+
+# But what's the deal with these pools?
+
+* Iceland has abundant geothermal resources. Water doesn't need to be heated, we just pump hot water out of the ground at 80°C/176°F. So, hot water in Iceland is incredibly cheap.
+
+* Iceland is a fishing nation. When every **1 out of 5 people works in fishing**, as was the case on average for the whole of the 20th century, it's really important that those people know how to swim. So every able-bodied person that goes through the Icelandic school system knows how to swim - as we have to take mandatory swimming lessons once a week through 1st to 10th grade (that's roughly **400 hours of *mandatory* swimming**).
+
+* **It's cold and it's dark. &lt;/br&gt;**
+Iceland is cold, and since sunset is just 4 hours after sunrise during the darkest winter days in Reykjavík (as little as 2 hours in more northerly towns) we don't get enough Vitamin D from sunlight. But we can fight that by laying in our bathing suits in pools and hot tubs, with hot water protecting us from the freezing wind - our skin grasping on to what little sun light there is to go around. 
+
+* So, people go there to swim and to enjoy some sunlight in a 42°C/108°F hot tub... but there's a third reason. They also go there to socialize, meet people, talk politics and gossip. 
+
+---
+
+# A thermal pool data science project
+
+#### The idea: to show which swimming pools are crowded and which ones are not
+
+* Since the swimming pools are popular, citizens have contacted the city offices to ask if there's any way to see which pools are crowded and which ones have few patrons at the moment.
+
+* Welfare workers have also expressed an interest in such a solution (for clients that are susceptible to sensory overload)
+
+* A neighbouring town, Hafnarfjörður, a suburb of Reykjavík, now offers a website dashboard which shows you how crowded their two swimming pools currently are. They have their staff manually count patrons.
+
+* During Covid, swimming pools have had to limit availability to 50% of normal capacity for certain periods (this was the final catalyst).
+
+---
+
+# The pitch (*rephrased*)
+
+### "We have updated the gates at our swimming pools to modern electronic turnstiles. With these modern gates we can now get information on how many people are at each swimming pool through an API (application programming interface). &lt;/br&gt; &lt;/br&gt; Can you help us present this data - showing how crowded each pool is?"
+
+#### - Department of Sports and Leisure (*not a direct quote*)
+
+---
+
+## So we're in contact with Sports and Leisure
+
+&lt;img src="png/ds_dsl_150.png" width="566" style="display: block; margin: auto;" /&gt;
+
+---
+
+## But it's actually more complicated than that
+
+&lt;img src="png/ds_dsl_vendors_150.png" width="566" style="display: block; margin: auto;" /&gt;
+---
+
+## "But still, should be pretty straight forward once we get the data, right?" 🤡
+
+#### How I envision the project:
+1. Read data from API using _{httr}_
+2. (Surely) Do some data cleaning with the _{tidyverse}_ and _{purrr}_
+3. Visualize the data with _{ggplot2}_
+4. Make that visualization interactive with _{ggiraph}_ or _{plotly}_
+5. Make that into a reactive _{shiny}_ app and deploy it to _shinyapps.io_ or _RStudio Connect_
+
+### This is of course a tragic miscalculation on my part because:
+#### a) I'm assuming that getting the data will take a somewhat reasonable time
+#### b) I'm assuming lots of things about the data and the API (see five item list above)
+ 
+
+---
+
+# A little bit about why simple things can take a long time
+
+* Priorities
+
+* Group intercommunication
+
+* Forced communication protocols
+
+* Red tape (the worst of which is "lawyer stuff")
+
+---
+# A little bit about why simple things can take a long time
+
+#### The timeline for getting API access to swimming pool gate data
+&lt;/br&gt;
+&lt;/br&gt;
+
+&lt;img src="png/timeline_an_rect_an_emaila.png" width="720" style="display: block; margin: auto;" /&gt;
+---
+
+# A little bit about why simple things can take a long time
+
+#### The timeline for getting API access to swimming pool gate data
+&lt;/br&gt;
+&lt;/br&gt;
+
+&lt;img src="png/timeline_an_rect.png" width="720" style="display: block; margin: auto;" /&gt;
+---
+
+# A little bit about why simple things can take a long time
+
+#### The timeline for getting API access to swimming pool gate data
+&lt;/br&gt;
+&lt;/br&gt;
+
+&lt;img src="png/timeline.png" width="720" style="display: block; margin: auto;" /&gt;
+
+---
+
+# But then you get the data and clean it
+
+&lt;img src="png/gate_api.png" width="960" style="display: block; margin: auto;" /&gt;
+
+---
+
+# But then you get the data and clean it
+
+&lt;img src="png/gate_api_highlight.png" width="960" style="display: block; margin: auto;" /&gt;
+---
+
+# But then you get the data and clean it
+
+&lt;img src="png/gate_api_highlight_text.png" width="960" style="display: block; margin: auto;" /&gt;
+
+
+---
+# A realization
+&lt;/br&gt;
+### So it turns out 
+* The gate hardware for five of the six pools we want to show in our app only counts visitors **into** the pool. So _currentVisitors_ isn't actually the number of current visitors, but the cumulative sum of total visitors up to the point of the GET request.
+
+### But also
+* The API can't show us anything except each pool's _currentVisitors_ value at the time of the GET request. (So what you saw in the earlier slide is actually the result of sending GET requests at five minute intervals throughout the day).
+
+---
+# But wait! There's more! 🎉
+
+&lt;img src="png/gate_api_ldl.png" width="960" style="display: block; margin: auto;" /&gt;
+
+---
+# But wait! There's more! 🎉
+
+&lt;img src="png/gate_api_ldl_text.png" width="960" style="display: block; margin: auto;" /&gt;
+---
+# What next?
+&lt;/br&gt;
+### From the API we don't know when people leave
+&lt;/br&gt;
+so we ask:
+&lt;/br&gt;
+&lt;/br&gt;
+### What if we model the duration?
+---
+# The idea 💡
+
+* We request _historical_ data through the Icelandic vendor (reminder: Laugardalslaug has *in* and *out* data)
+
+
+* Assumption 1: Peoples' stays are not inherently different in duration between Laugardalslaug and other pools
+* Assumption 2: Peoples' stays are not inherently different in duration between people who are counted out and people who are not counted out
+&lt;/br&gt;
+
+### If we get the historical data + assumptions 1 and 2 hold:
+#### - We can train a model on historical Laugardalslaug stay durations of people that are counted out
+#### - And then predict on live API data for other pools
+---
+# So that's what we did
+
+&lt;img src="png/rs_pipeline.png" width="701" style="display: block; margin: auto;" /&gt;
+---
+# So that's what we did
+
+## On a local machine
+
+1. We read historical data of in/out duration from Google Cloud into R using _{bigrquery}_&lt;sup&gt;1&lt;/sup&gt;.
+2. Fit a few different linear models and evaluate them using _{tidymodels}_; _{yardstick}_&lt;sup&gt;2&lt;/sup&gt;.
+    - **Predictors**:
+    - _weekend_ - is it the weekend (or a weekday)? 0/1
+    - Natural spline term of _hours_ (which is hour of the day)&lt;sup&gt;3&lt;/sup&gt;
+    - *from_solstice* - absolute number of days from the summer solstice
+3. We then publish that model to RStudio Connect through the _{pins}_ package.
+
+
+.footnote[[1] Later we'd turn to RStudio Professional Drivers and _{DBI}_]
+&lt;/br&gt;
+.footnote[[2] We ended up with a super simple linear splines regression model... and I LOVE it!]
+&lt;/br&gt;
+.footnote[[3] We use 7 knots selected based on staff knowledge but also evaluating different combinations on the training set]
+---
+
+# So that's what we did
+
+## On RStudio Connect
+
+#### An RMarkdown document is scheduled to do the following every 5 minutes:
+* Read data from the API
+* Clean that API data and wrangle it into a table
+* Read data from the "In" dataset pin
+* Append cleaned API data table to the "In dataset"
+* Pin (save) the updated "In" dataset to the RStudio board
+
+#### A Shiny application
+* Reads the "In" dataset pin
+* Reads the lm model pin
+* Runs _predict_ for the "In" data to create an estimate of _currentVisitors_
+
+
+---
+
+### An app for the managers of the swimming pools to evaluate:
+
+&lt;img src="png/today_app.png" width="904" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Why is this super cool?
+&lt;/br&gt;
+### It's all R and RStudio Connect. 
+
+####So we can move at our own pace - for this part of the project there are no outside constraints or inefficiencies in how we communicate with other groups. 
+
+#### We also get to run into problems ourselves and then we know what to take into account if parts of the process are *outsourced* beyond the data team.
+---
+# The current setup
+
+&lt;img src="png/rs_pipeline_modern.png" width="615" style="display: block; margin: auto;" /&gt;
+---
+
+
+# But we have to talk about Laugardalslaug
+
+* The data for Laugardalslaug is **absolutely whack!** (technical term) 
+
+* And it has everything to do with the kindness of the staff working there!
+&lt;/br&gt;
+&lt;/br&gt;
+
+### DAMN YOU KINDNESS! YOU RUINED MY DATA! 😠
+---
+# Things we're trying
+
+* **Primary**: Ask the vendor to make changes to the API to separate (or show only) **"In"** data for Laugardalslaug
+    - We're waiting on this
+
+* **Secondary**: Use a different counter located by the actual pools in Laugardalslaug (not by the entrance) 
+    - This has proven unfruitful (bidirectional)
+
+* **Secondary**: Use count data from the smart lockers in Laugardalslaug
+    - Unclear if the firmware can be updated to the most recent version to support *live* data 
+    
+---
+
+# BTW. this was a gross oversimplification
+
+&lt;img src="png/ds_dsl_vendors_150.png" width="485" style="display: block; margin: auto;" /&gt;
+
+---
+# Still to-do:
+
+### Account for gym patrons that use the swimming pools at:
+
+* Laugardalslaug
+
+* Breiðholtslaug
+
+### Suuuuurely, something else! 
+
+---
+
+# Thank you
+&lt;/br&gt;
+&lt;/br&gt;
+#### On Linkedin: in/hlynurh (Hlynur Hallgrímsson)
+#### On Twitter: @hlynur
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

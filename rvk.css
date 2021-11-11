@@ -1,0 +1,51 @@
+body { font-family: 'Esja' }
+
+
+
+.title-slide {
+  background-image: url(https://styles.reykjavik.is/assets/illustrations/sund1.png);
+  background-size: 30%;
+  background-position: bottom 50px right 100px;
+  background-color: #0376E1;
+  color: white;
+}
+
+.title-slide h2 {
+  font-size: 32px;
+  line-height: 40px;
+  
+}
+
+.title-slide h3 {
+  font-size: 20px;
+  line-height: 32px;
+  
+}
+
+.remark-slide-content h1{
+  padding-left: 80px;
+  background-image: url(https://styles.reykjavik.is/assets/favicon-large.png);
+  background-repeat: no-repeat;
+  background-size: 5%;
+  background-position: top 10px left 5px;
+}
+
+.title-slide h1 {
+  font-size: 72px;
+  line-height: 90px;
+  padding-left: 0 !important;
+  font-weight: italic !important;
+  background-image: none !important;
+}
+
+span.footnote {
+  font-size: 14px !important;
+}
+
+/* .remark-slide-number {
+  font-size: 10pt;
+  margin-bottom: -11.6px;
+  margin-right: 10px;
+  color: #FFFFFF; 
+  opacity: 1; 
+} */
