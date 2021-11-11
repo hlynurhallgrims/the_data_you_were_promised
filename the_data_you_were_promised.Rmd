@@ -13,6 +13,30 @@ output:
       countIncrementalSlides: false
 ---
 
+```{r metathis, echo=FALSE}
+library(metathis)
+meta() %>%
+  meta_name("github-repo" = "hlynurhallgrims/the_data_you_were_promised") %>% 
+  meta_social(
+    title = "The data you were promised... and the data that you got",
+    description = paste(
+      "A story about Reykjavík's Thermal Pools at the R in Public Sector RStudio Enterprise Community Meetup"
+    ),
+    url = "https://hlynurhallgrims.github.io/the_data_you_were_promised/",
+    image = "https://hlynurhallgrims.github.io/the_data_you_were_promised/social-card.png",
+    image_alt = paste(
+      "Title slide of The data you were promised... and the data that you got", 
+      "A story about Reykjavík's Thermal Pools,", 
+      "presented at the R in Public Sector RStudio Enterprise Community Meetup by Hlynur Hallgrímsson"
+    ),
+    og_type = "website",
+    og_author = "Hlynur Hallgrímsson",
+    twitter_card_type = "summary_large_image",
+    twitter_creator = "@hlynur",
+    twitter_site = "@hlynur"
+  )
+```
+
 # Who am I?
 
 *  **Hlynur Hallgrímsson** </br>
